@@ -1,0 +1,32 @@
+brickset_connect.content:
+  path: '/brickset_connect'
+  defaults:
+    _controller: '\Drupal\brickset_connect\Controller\BricksetConnectController::content'
+    _title: 'Brickset Connect'
+  requirements:
+    _permission: 'access content'
+
+
+brickset_connect.settings:
+  path: '/admin/config/brickset_connect/settings'
+  defaults:
+    _form: '\Drupal\brickset_connect\Form\BricksetConnectAdminForm'
+    _title: 'Brickset Connect Configuration'
+  requirements:
+    _permission: 'administer site configuration'
+
+brickset_connect.bulk_import:
+  path: '/admin/content/brickset_connect/bulk_import'
+  defaults:
+    _form: '\Drupal\brickset_connect\Form\BricksetConnectBulkImportForm'
+    _title: 'Brickset Connect Bulk Import'
+  requirements:
+    _permission: 'administer content'
+
+brickset_connect.content_menu:
+  path: '/admin/content/brickset_connect/content'
+  defaults:
+    _form: '\Drupal\brickset_connect\Form\BricksetConnectContentMenuForm'
+    _title: 'Brickset Connect'
+  requirements:
+    _permission: 'administer content'

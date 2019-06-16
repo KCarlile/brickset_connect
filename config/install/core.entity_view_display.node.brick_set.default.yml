@@ -1,0 +1,58 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.brick_set.field_brick_set_image
+    - field.field.node.brick_set.field_brick_set_name
+    - field.field.node.brick_set.field_brick_set_status
+    - field.field.node.brick_set.field_brick_set_year_released
+    - node.type.brick_set
+  module:
+    - datetime
+    - image
+    - options
+    - user
+id: node.brick_set.default
+targetEntityType: node
+bundle: brick_set
+mode: default
+content:
+  field_brick_set_image:
+    weight: 3
+    label: hidden
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    type: image
+    region: content
+  field_brick_set_name:
+    weight: 0
+    label: inline
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_brick_set_status:
+    weight: 2
+    label: inline
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+    region: content
+  field_brick_set_year_released:
+    weight: 1
+    label: inline
+    settings:
+      timezone_override: ''
+      format_type: html_year
+    third_party_settings: {  }
+    type: datetime_default
+    region: content
+  links:
+    weight: 4
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden: {  }

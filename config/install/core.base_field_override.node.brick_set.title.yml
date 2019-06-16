@@ -1,0 +1,17 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.brick_set
+id: node.brick_set.title
+field_name: title
+entity_type: node
+bundle: brick_set
+label: 'Set Number'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

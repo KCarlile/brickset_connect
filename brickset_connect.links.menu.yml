@@ -1,0 +1,6 @@
+brickset_connect.admin:
+  title: 'Brickset Connect settings'
+  description: 'Configure Brickset Connect'
+  parent: system.admin_config_development
+  route_name: brickset_connect.settings
+  weight: 100

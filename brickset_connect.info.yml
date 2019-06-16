@@ -1,0 +1,12 @@
+name: Brickset Connect
+description: Creates a content type and provides tool for brick set inventories.
+package: Custom
+type: module
+version: 1.0
+core: 8.x
+
+dependencies:
+
+configure: brickset_connect.settings
+
+php: 7.2
