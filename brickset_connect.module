@@ -1,0 +1,42 @@
+<?php
+
+/**
+ * @file
+ * Contains brickset_connect.module..
+ */
+
+use Drupal\brickset_connect\BricksetConnectAPIClient;
+
+/**
+ * Implements hook_entity_presave().
+ */
+function brickset_connect_entity_presave(Drupal\Core\Entity\EntityInterface $entity)
+{
+    switch ($entity->bundle()) {
+        case 'brick_set':
+          $set_number = $entity->get('title')->value;
+
+          try {
+            $brickset_connect = new BricksetConnectAPIClient();     
+            if (!$brickset_connect->login()) {
+              throw new \Exception("Brickset login failed");
+            }
+
+            // POPULATE ALL THE DATA
+            $brick_set = $brickset_connect->load_set($set_number);
+            drupal_set_message(print_r($brick_set, true));
+          } catch (\Exception $e) {
+            $api_check_result = BricksetConnectAPIClient::check_api_key();
+
+            if (!$api_check_result) {
+              $e . "<p><strong>API key check failed.</strong></p>";
+            }
+
+            drupal_set_message('XX Exception: ' . $e);
+          }
+
+
+          drupal_set_message('SAVE HOOK!' . $set_number);
+          break;
+    }
+}

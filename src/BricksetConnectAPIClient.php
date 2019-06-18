@@ -26,23 +26,14 @@ class BricksetConnectAPIClient {
  	}
 
 	public function get_api_key() {
-    //$config = \Drupal::configFactory()->get(static::SETTINGS);
-
-		//return $config->get('brickset_api_key');
 		return $this->api_key;
 	}
 
 	protected function get_username() {
-    //$config = \Drupal::configFactory()->get(static::SETTINGS);
-
-		//return $config->get('brickset_username');
 		return $this->username;
 	}
 
 	protected function get_password() {
-   	//$config = \Drupal::configFactory()->get(static::SETTINGS);
-
-		//return $config->get('brickset_password');
 		return $this->password;
 	}
 
@@ -110,6 +101,24 @@ class BricksetConnectAPIClient {
     return $result;
 	}
 
+	/**
+	 * Wrapper for singular call of load_sets
+	 * @return BrickSet object
+	 */
+	public function load_set($set_number) {
+		$set_numbers = array($set_number);
+
+		$brick_sets = $this->load_sets($set_numbers);
+
+		if (count($brick_sets) < 1) {
+			throw new \Exception("Failed to load at least one set");
+		}
+	}
+
+	/**
+	  * Load multiple sets
+	  * @return An array of BrickSet objects
+	  */
 	public function load_sets($set_numbers) {
 		// make sure we have a valid user hash before we continue
 		if(!$this->check_user_hash($this->user_hash)) {
@@ -162,7 +171,7 @@ drupal_set_message('Sets params:' . print_r($params, true));
     }
 
 drupal_set_message('Sets loaded:' . print_r($sets, true));
-
+		$brick_sets = array(); // return array
 
 		foreach ($sets as $set) {
 drupal_set_message('SetNumber: ' . $set->number . ' ---- ' . 'SetID: ' . $set->setID);
@@ -179,9 +188,35 @@ drupal_set_message('SetNumber: ' . $set->number . ' ---- ' . 'SetID: ' . $set->s
 drupal_set_message('AddlImages: ' . print_r($additional_images, true));
     	}
 
-      $brick_set = new BrickSet($set->number, $set->name, $set->year, $additional_images);
+    	$brick_set = new BrickSet($set->number, $set->name, $set->year, $additional_images);
+    	$brick_sets[] = $brick_set;
 // maybe need this -->      //$this->loaded_sets[] = $brick_set;
 
+drupal_set_message("Brick set: " . print_r($brick_set, true));
+    }
+
+    return $brick_sets;
+	}
+
+	/**
+	  * Save an array of BrickSets
+	  */
+	public function save_sets($brick_sets) {
+    // make sure we got at least one set loaded
+    if (!$brick_sets || count($brick_sets) < 1) {
+			throw new \Exception("Less than 1 brick set for saving");
+    }
+
+    // one set returns an object, not an array with one element, so...
+    // if the result isn't an array, let's stick it in an array, so...
+    // we'll always know that it's an array, regardless of how many elements
+    if (!is_array($brick_sets)) {
+    	$brick_sets = array($brick_sets);
+    }
+
+drupal_set_message('Sets for saving:' . print_r($brick_sets, true));
+
+		foreach ($brick_sets as $brick_set) {
 drupal_set_message("Brick set: " . print_r($brick_set, true));
 
       try {
@@ -191,13 +226,12 @@ drupal_set_message("Brick set: " . print_r($brick_set, true));
         drupal_set_message($e);
       }
     }
-
-
-/*
-    return $sets;
- */
 	}
 
+	/**
+	  * Get the additional images for a set_id
+		* @return object of additional image data
+	  */
 	public function get_additional_images($set_id) {
 		$additional_images = array();
 

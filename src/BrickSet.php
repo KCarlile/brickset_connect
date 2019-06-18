@@ -26,7 +26,7 @@ class BrickSet {
 	public function create_node() {
 		if (!$this->set_number) {
 			throw new \Exception("BrickSet not initialized: no set number.");
-		} elseif ($this->brick_set_exists($this->set_number)) {
+		} elseif ($this->brick_set_exists()) {
 			throw new \Exception("Brick Set already exists: " . $this->set_number);
 		}
 
@@ -61,8 +61,8 @@ class BrickSet {
 		$node->save();
 	}
 
-	public function brick_set_exists($set_number) {
-		$values = \Drupal::entityQuery('node')->condition('title', $set_number)->execute();
+	private function brick_set_exists() {
+		$values = \Drupal::entityQuery('node')->condition('title', $this->set_number)->execute();
 		$node_exists = !empty($values);
 
 		return !empty($node_exists);

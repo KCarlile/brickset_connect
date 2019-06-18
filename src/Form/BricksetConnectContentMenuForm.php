@@ -87,8 +87,8 @@ class BricksetConnectContentMenuForm extends FormBase {
 drupal_set_message('User hash:' . $brickset_connect->get_user_hash());
 drupal_set_message('Logged in!');
 
-  	 $brickset_connect->load_sets($set_numbers);
-
+      $brick_sets = $brickset_connect->load_sets($set_numbers);
+  	  $brickset_connect->save_sets($brick_sets);
    	} catch (\Exception $e) {
       drupal_set_message('Exception: ' . $e);
 
