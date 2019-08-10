@@ -42,9 +42,9 @@ class BricksetConnectAPIClient {
 	}
 
 	/**
-   	  * {@inheritdoc}
-   	  * Login to the Brickset API to get a user hash for API call authentication.
-      */
+   	* {@inheritdoc}
+   	* Login to the Brickset API to get a user hash for API call authentication.
+    */
 	public function login() {
 		$client = new \SoapClient(static::WSDL);
 	    $params = array(
@@ -214,16 +214,16 @@ drupal_set_message("Brick set: " . print_r($brick_set, true));
     	$brick_sets = array($brick_sets);
     }
 
-drupal_set_message('Sets for saving:' . print_r($brick_sets, true));
+//drupal_set_message('Sets for saving:' . print_r($brick_sets, true));
 
 		foreach ($brick_sets as $brick_set) {
 drupal_set_message("Brick set: " . print_r($brick_set, true));
 
       try {
-        $brick_set->create_node();  
+        $brick_set->create_node();
       }
       catch (Exception $e) {
-        drupal_set_message($e);
+        drupal_set_message($e->getMessage());
       }
     }
 	}

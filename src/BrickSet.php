@@ -7,6 +7,7 @@ namespace Drupal\brickset_connect;
 
 use Drupal\node\Entity\Node;
 use Drupal\file\Entity\File;
+use Exception;
 
 class BrickSet {
 	public $set_number = null;
@@ -24,21 +25,64 @@ class BrickSet {
 	}
 
 	public function create_node() {
-		if (!$this->set_number) {
-			throw new \Exception("BrickSet not initialized: no set number.");
-		} elseif ($this->brick_set_exists()) {
-			throw new \Exception("Brick Set already exists: " . $this->set_number);
-		}
+		try {
+			$this->test_brick_set();
+		
+			$node = Node::create(['type' => 'brick_set']);
+			$node = $this->brick_set_field_setup($node);
+			/*
+			$node->set('title', $this->set_number);
 
-		$node = Node::create(['type' => 'brick_set']);
-		$node->set('title', $this->set_number);
+			if ($this->set_name) {
+				$node->set('field_brick_set_name', $this->set_name);
+			}
+
+			if ($this->year_released) { 
+				$node->set('field_brick_set_year_released', $this->year_released . '-01-01');
+			}
+			
+			if (count($this->images) > 0) {
+				$image_entities = array();
+				$i = 1;
+
+				foreach($this->images as $image) {
+					$ext = pathinfo($image->imageURL, PATHINFO_EXTENSION);
+					$data = file_get_contents($image->imageURL);
+					$file = file_save_data($data, 'public://' . $this->set_number . '-' . $i . '.' . $ext, FILE_EXISTS_REPLACE);
+					$image_entities[$i] = ['target_id' => $file->id()];
+					$i++;
+				}
+
+				$node->set('field_brick_set_image', $image_entities);
+			}
+			*/
+			
+			$node->status = 1;
+			$node->enforceIsNew();
+			$node->save();
+		}
+		catch (Exception $e) {
+			drupal_set_message($e->getMessage());
+		}
+	}
+
+	public function brick_set_entity_presave($entity) {
+		$this->test_brick_set();
+
+		$entity = $this->brick_set_field_setup($entity);
+
+		return $entity;
+	}
+
+	private function brick_set_field_setup($entity) {
+		$entity->set('title', $this->set_number);
 
 		if ($this->set_name) {
-			$node->set('field_brick_set_name', $this->set_name);
+			$entity->set('field_brick_set_name', $this->set_name);
 		}
 
 		if ($this->year_released) { 
-			$node->set('field_brick_set_year_released', $this->year_released . '-01-01');
+			$entity->set('field_brick_set_year_released', $this->year_released . '-01-01');
 		}
 		
 		if (count($this->images) > 0) {
@@ -53,12 +97,10 @@ class BrickSet {
 				$i++;
 			}
 
-			$node->set('field_brick_set_image', $image_entities);
+			$entity->set('field_brick_set_image', $image_entities);
 		}
-		
-		$node->status = 1;
-		$node->enforceIsNew();
-		$node->save();
+
+		return $entity;
 	}
 
 	private function brick_set_exists() {
@@ -66,5 +108,13 @@ class BrickSet {
 		$node_exists = !empty($values);
 
 		return !empty($node_exists);
+	}
+
+	public function test_brick_set() {
+		if (!$this->set_number) {
+			throw new Exception("BrickSet not initialized: no set number.");
+		} elseif ($this->brick_set_exists()) {
+			throw new Exception("Brick Set already exists: " . $this->set_number);
+		}
 	}
 }

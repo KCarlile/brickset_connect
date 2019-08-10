@@ -30,10 +30,10 @@ class BricksetConnectContentMenuForm extends FormBase {
   	// Set Numbers
     $form['set_numbers'] = array(
       '#type' => 'textarea',
-      '#title' => $this->t('Bulk Import Set Numbers:'),
+      '#title' => $this->t('Import Set Numbers:'),
       '#description' => $this->t('Enter brick set numbers, one per line.'),
       '#cols' => 4,
-      '#rows' => 20,
+      '#rows' => 10,
     );
     $form['actions']['#type'] = 'actions';
     $form['actions']['submit'] = array(
@@ -41,20 +41,22 @@ class BricksetConnectContentMenuForm extends FormBase {
       '#value' => $this->t('Import'),
       '#button_type' => 'primary',
     );
+    /*
     $form['actions']['refresh'] = array(
       '#type' => 'submit',
       '#value' => $this->t('Refresh Content'),
       '#button_type' => 'primary',
       '#submit' => array('::refresh'),
     );
-
+    */
+    /*
     $form['actions']['apicall'] = array(
       '#type' => 'submit',
       '#value' => $this->t('API Call'),
       '#button_type' => 'primary',
       '#submit' => array('::apicall'),
     );
-
+    */
     return $form;
   }
 
@@ -88,9 +90,9 @@ drupal_set_message('User hash:' . $brickset_connect->get_user_hash());
 drupal_set_message('Logged in!');
 
       $brick_sets = $brickset_connect->load_sets($set_numbers);
-  	  $brickset_connect->save_sets($brick_sets);
+  	  $brickset_connect->save_sets($brick_sets, true);
    	} catch (\Exception $e) {
-      drupal_set_message('Exception: ' . $e);
+      drupal_set_message('Exception: ' . $e->getMessage());
 
    		$api_check_result = BricksetConnectAPIClient::check_api_key();
 
@@ -98,7 +100,7 @@ drupal_set_message('Logged in!');
    		  $e . "<p><strong>API key check failed.</strong></p>";
    		}
 
-      drupal_set_message('Exception: ' . $e);
+      drupal_set_message('Exception: ' . $e->getMessage());
    	}
   }
 

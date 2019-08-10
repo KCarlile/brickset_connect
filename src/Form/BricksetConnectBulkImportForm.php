@@ -1,4 +1,6 @@
 <?php
+////// DON'T USE THIS FILE //////
+
 /**
  * @file
  * Contains Drupal\brickset_connect\Form\BricksetConnectBulkImportForm.
@@ -119,7 +121,7 @@ class BricksetConnectBulkImportForm extends FormBase {
         $brick_set->create_node();  
       }
       catch (Exception $e) {
-        drupal_set_message($e);
+        drupal_set_message($e->getMessage());
       }
       
     }
