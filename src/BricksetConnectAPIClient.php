@@ -124,7 +124,8 @@ class BricksetConnectAPIClient {
 		if(!$this->check_user_hash($this->user_hash)) {
 			throw new \Exception("Brickset user hash check failed");
 		}
-drupal_set_message('get_sets user hash passed');
+
+    \Drupal::logger('brickset_connect')->notice('get_sets user hash passed');
 
 		$set_list = '';
 
@@ -154,7 +155,7 @@ drupal_set_message('get_sets user hash passed');
       'userName' => '',
     );
 
-drupal_set_message('Sets params:' . print_r($params, true));
+    \Drupal::logger('brickset_connect')->notice('Sets params:' . print_r($params, true));
 
     $sets = $client->getSets($params)->getSetsResult->sets;
 
@@ -170,11 +171,11 @@ drupal_set_message('Sets params:' . print_r($params, true));
     	$sets = array($sets);
     }
 
-drupal_set_message('Sets loaded:' . print_r($sets, true));
+    \Drupal::logger('brickset_connect')->notice('Sets loaded:' . print_r($sets, true));
 		$brick_sets = array(); // return array
 
 		foreach ($sets as $set) {
-drupal_set_message('SetNumber: ' . $set->number . ' ---- ' . 'SetID: ' . $set->setID);
+      \Drupal::logger('brickset_connect')->notice('SetNumber: ' . $set->number . ' ---- ' . 'SetID: ' . $set->setID);
 			$additional_images = null;
 
 			if ($set->additionalImageCount > 0) {
@@ -185,14 +186,15 @@ drupal_set_message('SetNumber: ' . $set->number . ' ---- ' . 'SetID: ' . $set->s
 		    if (!is_array($additional_images)) {
 		    	$additional_images = array($additional_images);
 		    }
-drupal_set_message('AddlImages: ' . print_r($additional_images, true));
+
+        \Drupal::logger('brickset_connect')->notice('AddlImages: ' . print_r($additional_images, true));
     	}
 
     	$brick_set = new BrickSet($set->number, $set->name, $set->year, $additional_images);
     	$brick_sets[] = $brick_set;
 // maybe need this -->      //$this->loaded_sets[] = $brick_set;
 
-drupal_set_message("Brick set: " . print_r($brick_set, true));
+      \Drupal::logger('brickset_connect')->notice("Brick set: " . print_r($brick_set, true));
     }
 
     return $brick_sets;
@@ -217,7 +219,7 @@ drupal_set_message("Brick set: " . print_r($brick_set, true));
 //drupal_set_message('Sets for saving:' . print_r($brick_sets, true));
 
 		foreach ($brick_sets as $brick_set) {
-drupal_set_message("Brick set: " . print_r($brick_set, true));
+      \Drupal::logger('brickset_connect')->notice("Brick set: " . print_r($brick_set, true));
 
       try {
         $brick_set->create_node();

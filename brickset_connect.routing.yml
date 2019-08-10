@@ -15,14 +15,6 @@ brickset_connect.settings:
   requirements:
     _permission: 'administer site configuration'
 
-brickset_connect.bulk_import:
-  path: '/admin/content/brickset_connect/bulk_import'
-  defaults:
-    _form: '\Drupal\brickset_connect\Form\BricksetConnectBulkImportForm'
-    _title: 'Brickset Connect Bulk Import'
-  requirements:
-    _permission: 'administer content'
-
 brickset_connect.content_menu:
   path: '/admin/content/brickset_connect/content'
   defaults:

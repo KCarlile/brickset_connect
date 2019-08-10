@@ -41,22 +41,7 @@ class BricksetConnectContentMenuForm extends FormBase {
       '#value' => $this->t('Import'),
       '#button_type' => 'primary',
     );
-    /*
-    $form['actions']['refresh'] = array(
-      '#type' => 'submit',
-      '#value' => $this->t('Refresh Content'),
-      '#button_type' => 'primary',
-      '#submit' => array('::refresh'),
-    );
-    */
-    /*
-    $form['actions']['apicall'] = array(
-      '#type' => 'submit',
-      '#value' => $this->t('API Call'),
-      '#button_type' => 'primary',
-      '#submit' => array('::apicall'),
-    );
-    */
+
     return $form;
   }
 
@@ -77,7 +62,7 @@ class BricksetConnectContentMenuForm extends FormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $set_numbers = explode("\r\n", $form_state->getValue('set_numbers'));
- drupal_set_message(print_r($set_numbers, true));
+    \Drupal::logger('brickset_connect')->notice(print_r($set_numbers, true));
 
    	try {
   	 	$brickset_connect = new BricksetConnectAPIClient();
@@ -86,13 +71,12 @@ class BricksetConnectContentMenuForm extends FormBase {
   	 		throw new \Exception("Brickset login failed");
   	 	}
 
-drupal_set_message('User hash:' . $brickset_connect->get_user_hash());
-drupal_set_message('Logged in!');
+      \Drupal::logger('brickset_connect')->notice('Logged in. User hash:' . $brickset_connect->get_user_hash());
 
       $brick_sets = $brickset_connect->load_sets($set_numbers);
   	  $brickset_connect->save_sets($brick_sets, true);
    	} catch (\Exception $e) {
-      drupal_set_message('Exception: ' . $e->getMessage());
+      \Drupal::logger('brickset_connect')->error($e->getMessage());
 
    		$api_check_result = BricksetConnectAPIClient::check_api_key();
 
@@ -100,7 +84,7 @@ drupal_set_message('Logged in!');
    		  $e . "<p><strong>API key check failed.</strong></p>";
    		}
 
-      drupal_set_message('Exception: ' . $e->getMessage());
+      \Drupal::logger('brickset_connect')->error('Exception: ' . $e->getMessage());
    	}
   }
 

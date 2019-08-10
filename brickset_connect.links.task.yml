@@ -1,12 +1,5 @@
-brickset_connect.bulk_import:
-  title: 'Brickset Connect Bulk Import---'
-  description: 'Bulk import brick set numbers'
-  base_route: system.admin_content
-  route_name: brickset_connect.bulk_import
-  weight: 100
-
 brickset_connect.content_menu:
-  title: 'Brickset Connect***'
+  title: 'Brickset Connect'
   description: 'Bulk import brick set numbers'
   base_route: system.admin_content
   route_name: brickset_connect.content_menu

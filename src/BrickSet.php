@@ -25,43 +25,25 @@ class BrickSet {
 	}
 
 	public function create_node() {
+		/*
+// Logs a notice
+\Drupal::logger('brickset_connect')->notice($message);
+// Logs an error
+\Drupal::logger('brickset_connect')->error($message);
+		*/
 		try {
+			\Drupal::logger('brickset_connect')->notice('About to run test_brick_set on ' . $this->set_number);
 			$this->test_brick_set();
 		
 			$node = Node::create(['type' => 'brick_set']);
 			$node = $this->brick_set_field_setup($node);
-			/*
-			$node->set('title', $this->set_number);
-
-			if ($this->set_name) {
-				$node->set('field_brick_set_name', $this->set_name);
-			}
-
-			if ($this->year_released) { 
-				$node->set('field_brick_set_year_released', $this->year_released . '-01-01');
-			}
-			
-			if (count($this->images) > 0) {
-				$image_entities = array();
-				$i = 1;
-
-				foreach($this->images as $image) {
-					$ext = pathinfo($image->imageURL, PATHINFO_EXTENSION);
-					$data = file_get_contents($image->imageURL);
-					$file = file_save_data($data, 'public://' . $this->set_number . '-' . $i . '.' . $ext, FILE_EXISTS_REPLACE);
-					$image_entities[$i] = ['target_id' => $file->id()];
-					$i++;
-				}
-
-				$node->set('field_brick_set_image', $image_entities);
-			}
-			*/
 			
 			$node->status = 1;
 			$node->enforceIsNew();
 			$node->save();
 		}
 		catch (Exception $e) {
+			\Drupal::logger('brickset_connect')->error('create_node method failed.');
 			drupal_set_message($e->getMessage());
 		}
 	}
@@ -112,8 +94,10 @@ class BrickSet {
 
 	public function test_brick_set() {
 		if (!$this->set_number) {
+			\Drupal::logger('brickset_connect')->error('Set number missing.');
 			throw new Exception("BrickSet not initialized: no set number.");
 		} elseif ($this->brick_set_exists()) {
+			\Drupal::logger('brickset_connect')->error('Set number already exists.');
 			throw new Exception("Brick Set already exists: " . $this->set_number);
 		}
 	}
