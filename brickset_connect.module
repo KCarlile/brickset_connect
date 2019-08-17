@@ -10,6 +10,8 @@ use Drupal\brickset_connect\BricksetConnectAPIClient;
 /**
  * Implements hook_entity_presave().
  */
+
+/*
 function brickset_connect_entity_presave(Drupal\Core\Entity\EntityInterface $entity)
 {
     switch ($entity->bundle()) {
@@ -48,3 +50,4 @@ drupal_set_message('SAVE HOOK COMPLETED!' . $set_number);
           break;
     }
 }
+*?

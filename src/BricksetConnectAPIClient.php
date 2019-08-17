@@ -125,7 +125,7 @@ class BricksetConnectAPIClient {
 			throw new \Exception("Brickset user hash check failed");
 		}
 
-    \Drupal::logger('brickset_connect')->notice('get_sets user hash passed');
+    //\Drupal::logger('brickset_connect')->notice('get_sets user hash passed');
 
 		$set_list = '';
 
@@ -155,12 +155,13 @@ class BricksetConnectAPIClient {
       'userName' => '',
     );
 
-    \Drupal::logger('brickset_connect')->notice('Sets params:' . print_r($params, true));
+    \Drupal::logger('brickset_connect')->notice('Query params:' . print_r($params, true));
 
     $sets = $client->getSets($params)->getSetsResult->sets;
 
     // make sure we got at least one set loaded
-    if (!$sets || count($sets) < 1) {
+    //if (!$sets || count($sets) < 1) {
+    if (!$sets) {
 			throw new \Exception("Less than 1 set loaded");
     }
 
@@ -176,25 +177,26 @@ class BricksetConnectAPIClient {
 
 		foreach ($sets as $set) {
       \Drupal::logger('brickset_connect')->notice('SetNumber: ' . $set->number . ' ---- ' . 'SetID: ' . $set->setID);
-			$additional_images = null;
+			$images = array();
 
+      // make sure there is at least one image
+      if ($set->imageURL) {
+        $images[] = $set->imageURL;
+      }
+
+      \Drupal::logger('brickset_connect')->notice('Additional images: ' . $set->additionalImageCount);
 			if ($set->additionalImageCount > 0) {
       	$additional_images = $this->get_additional_images($set->setID);
-
-      	// remember this ol' gag from above?
-      	// let's make sure it's an array
-		    if (!is_array($additional_images)) {
-		    	$additional_images = array($additional_images);
-		    }
-
-        \Drupal::logger('brickset_connect')->notice('AddlImages: ' . print_r($additional_images, true));
+        // add additional images to end of the array with the main imagea
+        $images = array_merge($images, $additional_images);
     	}
 
-    	$brick_set = new BrickSet($set->number, $set->name, $set->year, $additional_images);
+      \Drupal::logger('brickset_connect')->notice('TOTAL images: ' . print_r($images, true));
+    	$brick_set = new BrickSet($set->number, $set->name, $set->year, $images);
     	$brick_sets[] = $brick_set;
 // maybe need this -->      //$this->loaded_sets[] = $brick_set;
 
-      \Drupal::logger('brickset_connect')->notice("Brick set: " . print_r($brick_set, true));
+      \Drupal::logger('brickset_connect')->notice("Loaded brick set(s): " . print_r($brick_set, true));
     }
 
     return $brick_sets;
@@ -216,10 +218,8 @@ class BricksetConnectAPIClient {
     	$brick_sets = array($brick_sets);
     }
 
-//drupal_set_message('Sets for saving:' . print_r($brick_sets, true));
-
 		foreach ($brick_sets as $brick_set) {
-      \Drupal::logger('brickset_connect')->notice("Brick set: " . print_r($brick_set, true));
+      \Drupal::logger('brickset_connect')->notice("Save set: " . print_r($brick_set, true));
 
       try {
         $brick_set->create_node();
@@ -235,8 +235,6 @@ class BricksetConnectAPIClient {
 		* @return object of additional image data
 	  */
 	public function get_additional_images($set_id) {
-		$additional_images = array();
-
 		$client = new \SoapClient(static::WSDL);
 
 		// must pass ALL parameters, even if they are blank!
@@ -246,7 +244,19 @@ class BricksetConnectAPIClient {
       'setID' => $set_id,
     );
 
-    $additional_images = $client->getAdditionalImages($params)->getAdditionalImagesResult->additionalImages;
+    $additional_images_objs = $client->getAdditionalImages($params)->getAdditionalImagesResult->additionalImages;
+
+    if (!is_array($additional_images_objs)) {
+      $additional_images_objs = array($additional_images_objs);
+    }
+
+    $additional_images = array();
+
+    foreach($additional_images_objs as $image) {
+      $additional_images[] = $image->imageURL;
+    }
+
+    \Drupal::logger('brickset_connect')->notice('Additional images returning: ' . print_r($additional_images, true));
 
     return $additional_images;
 	}

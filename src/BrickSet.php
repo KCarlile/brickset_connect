@@ -32,7 +32,6 @@ class BrickSet {
 \Drupal::logger('brickset_connect')->error($message);
 		*/
 		try {
-			\Drupal::logger('brickset_connect')->notice('About to run test_brick_set on ' . $this->set_number);
 			$this->test_brick_set();
 		
 			$node = Node::create(['type' => 'brick_set']);
@@ -41,6 +40,9 @@ class BrickSet {
 			$node->status = 1;
 			$node->enforceIsNew();
 			$node->save();
+
+			\Drupal::logger('brickset_connect')->notice('Created set #' . $this->set_number);
+			drupal_set_message("Created set #" . $this->set_number);
 		}
 		catch (Exception $e) {
 			\Drupal::logger('brickset_connect')->error('create_node method failed.');
@@ -48,6 +50,7 @@ class BrickSet {
 		}
 	}
 
+	/*
 	public function brick_set_entity_presave($entity) {
 		$this->test_brick_set();
 
@@ -55,6 +58,7 @@ class BrickSet {
 
 		return $entity;
 	}
+	*/
 
 	private function brick_set_field_setup($entity) {
 		$entity->set('title', $this->set_number);
@@ -66,14 +70,17 @@ class BrickSet {
 		if ($this->year_released) { 
 			$entity->set('field_brick_set_year_released', $this->year_released . '-01-01');
 		}
+
+		\Drupal::logger('brickset_connect')->notice('brick_set_field_setup: ' . print_r($this->images,true));
 		
-		if (count($this->images) > 0) {
+		if ($this->images) {
 			$image_entities = array();
 			$i = 1;
 
 			foreach($this->images as $image) {
-				$ext = pathinfo($image->imageURL, PATHINFO_EXTENSION);
-				$data = file_get_contents($image->imageURL);
+				\Drupal::logger('brickset_connect')->notice('Saving image: ' . $image);
+				$ext = pathinfo($image, PATHINFO_EXTENSION);
+				$data = file_get_contents($image);
 				$file = file_save_data($data, 'public://' . $this->set_number . '-' . $i . '.' . $ext, FILE_EXISTS_REPLACE);
 				$image_entities[$i] = ['target_id' => $file->id()];
 				$i++;
