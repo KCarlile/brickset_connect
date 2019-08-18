@@ -5,7 +5,7 @@
  * Contains brickset_connect.module..
  */
 
-use Drupal\brickset_connect\BricksetConnectAPIClient;
+//use Drupal\brickset_connect\BricksetConnectAPIClient;
 
 /**
  * Implements hook_entity_presave().
@@ -50,4 +50,4 @@ drupal_set_message('SAVE HOOK COMPLETED!' . $set_number);
           break;
     }
 }
-*?
+*/
