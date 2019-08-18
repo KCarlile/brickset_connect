@@ -1,8 +1,8 @@
 {
     "name": "drupal/brickset_connect",
-    "description": "Brickset_Connect creates a content type and provides tool for brick set inventories.",
+    "description": "Brickset Connect creates a content type and provides an import tool for brick set inventories.",
     "type": "drupal-module",
-    "homepage": "https://drupal.org/project/brickset_connect",
+    "homepage": "https://www.drupal.org/project/brickset_connect",
     "authors": [
         {
             "name": "Kenny Carlile (KCarlile)",
@@ -11,7 +11,7 @@
         },
     ],
     "support": {
-        "issues": "https://drupal.org/project/issues/brickset_connect",
+        "issues": "https://www.drupal.org/project/issues/brickset_connect",
         "irc": "irc://irc.freenode.org/drupal-contribute",
         "source": "https://cgit.drupalcode.org/brickset_connect"
     },
