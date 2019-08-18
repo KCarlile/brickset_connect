@@ -1,5 +1,5 @@
 name: Brickset Connect
-description: Creates a content type and provides tool for brick set inventories.
+description: Creates a content type and provides an import tool for brick set inventories.
 package: Custom
 type: module
 version: 1.0

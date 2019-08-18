@@ -10,7 +10,6 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\node\Entity\Node;
 use Drupal\file\Entity\File;
 use Drupal\brickset_connect\BricksetConnectAPIClient;
-//use Drupal\brickset_connect\BrickSet;
 
 class BricksetConnectContentMenuForm extends FormBase {
   /** @var string Config settings */
