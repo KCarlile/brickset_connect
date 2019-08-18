@@ -13,13 +13,17 @@ class BrickSet {
 	public $set_number = null;
 	public $set_name = null;
 	public $year_released = null;
+	public $theme = null;
+	public $subtheme = null;
 	public $images = null;
 	public $status = null;
 
-	public function __construct($set_number, $set_name, $year_released, $images, $status = null) {
+	public function __construct($set_number, $set_name, $year_released, $theme, $subtheme, $images, $status = null) {
 		$this->set_number = $set_number;
 		$this->set_name = $set_name;
 		$this->year_released = $year_released;
+		$this->theme = $theme;
+		$this->subtheme = $subtheme;
 		$this->images = $images;
 		$this->status = $status;
 	}
@@ -53,6 +57,14 @@ class BrickSet {
 
 		if ($this->year_released) { 
 			$entity->set('field_brick_set_year_released', $this->year_released . '-01-01');
+		}
+
+		if ($this->theme) {
+			$entity->set('field_brick_set_theme', $this->theme);
+		}
+
+		if ($this->subtheme) {
+			$entity->set('field_brick_set_subtheme', $this->subtheme);
 		}
 
 		\Drupal::logger('brickset_connect')->notice('brick_set_field_setup: ' . print_r($this->images,true));

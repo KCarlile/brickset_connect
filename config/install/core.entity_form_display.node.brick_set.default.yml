@@ -1,3 +1,4 @@
+uuid: bcf8f1d2-900e-4d3b-9d77-e856d3f3a6ff
 langcode: en
 status: true
 dependencies:
@@ -5,12 +6,16 @@ dependencies:
     - field.field.node.brick_set.field_brick_set_image
     - field.field.node.brick_set.field_brick_set_name
     - field.field.node.brick_set.field_brick_set_status
+    - field.field.node.brick_set.field_brick_set_subtheme
+    - field.field.node.brick_set.field_brick_set_theme
     - field.field.node.brick_set.field_brick_set_year_released
     - image.style.thumbnail
     - node.type.brick_set
   module:
     - datetime
     - image
+_core:
+  default_config_hash: M1klcFzelHZbPWlMOcx-QIqyW18RzmXjAlqF6a8hnpg
 id: node.brick_set.default
 targetEntityType: node
 bundle: brick_set
@@ -18,12 +23,12 @@ mode: default
 content:
   created:
     type: datetime_timestamp
-    weight: 6
+    weight: 8
     region: content
     settings: {  }
     third_party_settings: {  }
   field_brick_set_image:
-    weight: 3
+    weight: 5
     settings:
       progress_indicator: throbber
       preview_image_style: thumbnail
@@ -39,10 +44,26 @@ content:
     type: string_textfield
     region: content
   field_brick_set_status:
-    weight: 4
+    weight: 6
     settings: {  }
     third_party_settings: {  }
     type: options_buttons
+    region: content
+  field_brick_set_subtheme:
+    weight: 4
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_brick_set_theme:
+    weight: 3
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
     region: content
   field_brick_set_year_released:
     weight: 2
@@ -54,7 +75,7 @@ content:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 7
+    weight: 9
     region: content
     third_party_settings: {  }
   title:
@@ -67,7 +88,7 @@ content:
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 5
+    weight: 7
     settings:
       match_operator: CONTAINS
       size: 60

@@ -6,6 +6,7 @@ version: 1.0
 core: 8.x
 
 dependencies:
+  - drupal:views
 
 configure: brickset_connect.settings
 

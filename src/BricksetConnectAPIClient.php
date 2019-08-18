@@ -190,7 +190,7 @@ class BricksetConnectAPIClient {
     	}
 
       \Drupal::logger('brickset_connect')->notice('TOTAL images: ' . print_r($images, true));
-    	$brick_set = new BrickSet($set->number, $set->name, $set->year, $images);
+    	$brick_set = new BrickSet($set->number, $set->name, $set->year, $set->theme, $set->subtheme, $images);
     	$brick_sets[] = $brick_set;
 
       \Drupal::logger('brickset_connect')->notice("Loaded brick set(s): " . print_r($brick_set, true));

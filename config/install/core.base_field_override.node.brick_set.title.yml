@@ -1,8 +1,11 @@
+uuid: 74e84e67-b400-4c47-9bbc-f7252a9d8c49
 langcode: en
 status: true
 dependencies:
   config:
     - node.type.brick_set
+_core:
+  default_config_hash: FhrQ3ojXXbJA7RgeHiM49Mun6ste5FgWW1xl9Kv5yaQ
 id: node.brick_set.title
 field_name: title
 entity_type: node

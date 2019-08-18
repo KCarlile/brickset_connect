@@ -1,9 +1,12 @@
+uuid: 1f1525c8-84ec-4bdc-a648-4521718fe2ad
 langcode: en
 status: true
 dependencies:
   config:
     - field.storage.node.field_brick_set_name
     - node.type.brick_set
+_core:
+  default_config_hash: H_4SnZ8tvelaBJ_RXjlgZlNLF1cimqlqzMlvkfrJipc
 id: node.brick_set.field_brick_set_name
 field_name: field_brick_set_name
 entity_type: node

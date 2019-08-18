@@ -1,19 +1,54 @@
+uuid: 5be42e36-d1da-474c-b86f-179035c8cef8
 langcode: en
 status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
+    - field.field.node.brick_set.field_brick_set_image
+    - field.field.node.brick_set.field_brick_set_name
+    - field.field.node.brick_set.field_brick_set_status
+    - field.field.node.brick_set.field_brick_set_subtheme
+    - field.field.node.brick_set.field_brick_set_theme
+    - field.field.node.brick_set.field_brick_set_year_released
+    - image.style.thumbnail
     - node.type.brick_set
   module:
+    - image
     - user
+_core:
+  default_config_hash: aXdK1hjzt7fv5TnPDsBIf4caACrruH16wjWG1q7kziU
 id: node.brick_set.teaser
 targetEntityType: node
 bundle: brick_set
 mode: teaser
 content:
-  links:
-    weight: 100
-    settings: {  }
-    third_party_settings: {  }
+  field_brick_set_image:
+    type: image
+    weight: 2
     region: content
-hidden: {  }
+    label: hidden
+    settings:
+      image_style: thumbnail
+      image_link: file
+    third_party_settings: {  }
+  field_brick_set_name:
+    type: string
+    weight: 0
+    region: content
+    label: inline
+    settings:
+      link_to_entity: true
+    third_party_settings: {  }
+  field_brick_set_theme:
+    type: string
+    weight: 1
+    region: content
+    label: inline
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+hidden:
+  field_brick_set_status: true
+  field_brick_set_subtheme: true
+  field_brick_set_year_released: true
+  links: true

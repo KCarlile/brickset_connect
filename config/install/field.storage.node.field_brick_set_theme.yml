@@ -1,13 +1,11 @@
-uuid: 75f02348-5ef5-4d34-927b-276dd2ac14f1
+uuid: 0aea1c6f-99e4-4164-95c9-c33c4bcec3f8
 langcode: en
 status: true
 dependencies:
   module:
     - node
-_core:
-  default_config_hash: UrrOZ-WTnL_Gtg5gST3zKE1gsLMDjhJ_0SOswekjCCw
-id: node.field_brick_set_name
-field_name: field_brick_set_name
+id: node.field_brick_set_theme
+field_name: field_brick_set_theme
 entity_type: node
 type: string
 settings:
@@ -16,7 +14,7 @@ settings:
   case_sensitive: false
 module: core
 locked: false
-cardinality: 1
+cardinality: -1
 translatable: true
 indexes: {  }
 persist_with_no_fields: false

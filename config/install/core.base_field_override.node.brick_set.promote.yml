@@ -1,8 +1,11 @@
+uuid: 1e77818f-2eaa-4fb8-a88c-c24ac8a06309
 langcode: en
 status: true
 dependencies:
   config:
     - node.type.brick_set
+_core:
+  default_config_hash: GxEHnxROb7qI0yJunGLqLNWXPYVnoZ2Fc2qsQseKdV8
 id: node.brick_set.promote
 field_name: promote
 entity_type: node

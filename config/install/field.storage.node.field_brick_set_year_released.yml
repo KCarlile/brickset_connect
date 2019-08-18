@@ -1,9 +1,12 @@
+uuid: 59aae1f1-6fe8-4a9c-8175-2c64863083af
 langcode: en
 status: true
 dependencies:
   module:
     - datetime
     - node
+_core:
+  default_config_hash: h7krtBTqr87IeiD6FYvF6ds22QIq9EYhQKd0Boi7JHU
 id: node.field_brick_set_year_released
 field_name: field_brick_set_year_released
 entity_type: node

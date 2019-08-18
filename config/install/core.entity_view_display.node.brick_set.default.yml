@@ -1,3 +1,4 @@
+uuid: c2f779ab-5789-4c48-ac42-4637e47bfb1a
 langcode: en
 status: true
 dependencies:
@@ -5,24 +6,29 @@ dependencies:
     - field.field.node.brick_set.field_brick_set_image
     - field.field.node.brick_set.field_brick_set_name
     - field.field.node.brick_set.field_brick_set_status
+    - field.field.node.brick_set.field_brick_set_subtheme
+    - field.field.node.brick_set.field_brick_set_theme
     - field.field.node.brick_set.field_brick_set_year_released
+    - image.style.large
     - node.type.brick_set
   module:
     - datetime
     - image
     - options
     - user
+_core:
+  default_config_hash: _tLoZqmjsD_im19Iz56rfxBkCaaMpPfYRhGzPSoJYiQ
 id: node.brick_set.default
 targetEntityType: node
 bundle: brick_set
 mode: default
 content:
   field_brick_set_image:
-    weight: 3
+    weight: 4
     label: hidden
     settings:
-      image_style: ''
-      image_link: ''
+      image_style: large
+      image_link: file
     third_party_settings: {  }
     type: image
     region: content
@@ -35,11 +41,27 @@ content:
     type: string
     region: content
   field_brick_set_status:
-    weight: 2
+    weight: 5
     label: inline
     settings: {  }
     third_party_settings: {  }
     type: list_default
+    region: content
+  field_brick_set_subtheme:
+    weight: 3
+    label: inline
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_brick_set_theme:
+    weight: 2
+    label: inline
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
     region: content
   field_brick_set_year_released:
     weight: 1
@@ -51,7 +73,7 @@ content:
     type: datetime_default
     region: content
   links:
-    weight: 4
+    weight: 6
     region: content
     settings: {  }
     third_party_settings: {  }

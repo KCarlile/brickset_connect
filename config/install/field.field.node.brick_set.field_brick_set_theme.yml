@@ -1,0 +1,19 @@
+uuid: 14861a52-df01-4d25-b7d9-75bb8a1355ed
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_brick_set_theme
+    - node.type.brick_set
+id: node.brick_set.field_brick_set_theme
+field_name: field_brick_set_theme
+entity_type: node
+bundle: brick_set
+label: Theme
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

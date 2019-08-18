@@ -1,9 +1,12 @@
+uuid: c7c94472-de8f-48ff-bffa-92b7a6bdba18
 langcode: en
 status: true
 dependencies:
   module:
     - node
     - options
+_core:
+  default_config_hash: WPBgHOUbpzfipVPAnyT2YXojuVzlEcuDVwjfolxsJXY
 id: node.field_brick_set_status
 field_name: field_brick_set_status
 entity_type: node

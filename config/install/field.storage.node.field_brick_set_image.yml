@@ -1,3 +1,4 @@
+uuid: cf868cd8-4015-44fc-bfab-13518a4ea57b
 langcode: en
 status: true
 dependencies:
@@ -5,6 +6,8 @@ dependencies:
     - file
     - image
     - node
+_core:
+  default_config_hash: _MGLgI8errzspNaJYHo502QdmbGPp8DvPC-Wv7N10Ik
 id: node.field_brick_set_image
 field_name: field_brick_set_image
 entity_type: node
