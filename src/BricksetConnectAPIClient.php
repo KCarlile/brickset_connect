@@ -125,8 +125,6 @@ class BricksetConnectAPIClient {
 			throw new \Exception("Brickset user hash check failed");
 		}
 
-    //\Drupal::logger('brickset_connect')->notice('get_sets user hash passed');
-
 		$set_list = '';
 
 		// for some reason, the default set number (part number) is always the
@@ -194,7 +192,6 @@ class BricksetConnectAPIClient {
       \Drupal::logger('brickset_connect')->notice('TOTAL images: ' . print_r($images, true));
     	$brick_set = new BrickSet($set->number, $set->name, $set->year, $images);
     	$brick_sets[] = $brick_set;
-// maybe need this -->      //$this->loaded_sets[] = $brick_set;
 
       \Drupal::logger('brickset_connect')->notice("Loaded brick set(s): " . print_r($brick_set, true));
     }

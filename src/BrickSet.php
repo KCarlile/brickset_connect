@@ -25,12 +25,6 @@ class BrickSet {
 	}
 
 	public function create_node() {
-		/*
-// Logs a notice
-\Drupal::logger('brickset_connect')->notice($message);
-// Logs an error
-\Drupal::logger('brickset_connect')->error($message);
-		*/
 		try {
 			$this->test_brick_set();
 		
@@ -49,16 +43,6 @@ class BrickSet {
 			drupal_set_message($e->getMessage());
 		}
 	}
-
-	/*
-	public function brick_set_entity_presave($entity) {
-		$this->test_brick_set();
-
-		$entity = $this->brick_set_field_setup($entity);
-
-		return $entity;
-	}
-	*/
 
 	private function brick_set_field_setup($entity) {
 		$entity->set('title', $this->set_number);
