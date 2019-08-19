@@ -86,11 +86,4 @@ class BricksetConnectContentMenuForm extends FormBase {
       \Drupal::logger('brickset_connect')->error('Exception: ' . $e->getMessage());
    	}
   }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function refresh(array &$form, FormStateInterface $form_state) {
-    drupal_set_message("Refreshing dees sumsa bitches!");
-  }
 }
