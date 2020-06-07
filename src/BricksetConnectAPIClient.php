@@ -203,28 +203,28 @@ class BricksetConnectAPIClient {
 	  * Save an array of BrickSets
 	  */
 	public function save_sets($brick_sets) {
-    // make sure we got at least one set loaded
-    if (!$brick_sets || count($brick_sets) < 1) {
-			throw new \Exception("Less than 1 brick set for saving");
-    }
+        // make sure we got at least one set loaded
+        if (!$brick_sets || count($brick_sets) < 1) {
+    			throw new \Exception("Less than 1 brick set for saving");
+        }
 
-    // one set returns an object, not an array with one element, so...
-    // if the result isn't an array, let's stick it in an array, so...
-    // we'll always know that it's an array, regardless of how many elements
-    if (!is_array($brick_sets)) {
-    	$brick_sets = array($brick_sets);
-    }
+        // one set returns an object, not an array with one element, so...
+        // if the result isn't an array, let's stick it in an array, so...
+        // we'll always know that it's an array, regardless of how many elements
+        if (!is_array($brick_sets)) {
+        	$brick_sets = array($brick_sets);
+        }
 
-		foreach ($brick_sets as $brick_set) {
-      \Drupal::logger('brickset_connect')->notice("Save set: " . print_r($brick_set, true));
+    		foreach ($brick_sets as $brick_set) {
+          \Drupal::logger('brickset_connect')->notice("Save set: " . print_r($brick_set, true));
 
-      try {
-        $brick_set->create_node();
-      }
-      catch (Exception $e) {
-        drupal_set_message($e->getMessage());
-      }
-    }
+          try {
+            $brick_set->create_node();
+          }
+          catch (Exception $e) {
+            \Drupal::messenger()->addMessage($e->getMessage());
+          }
+        }
 	}
 
 	/**

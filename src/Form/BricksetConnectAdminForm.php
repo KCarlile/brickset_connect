@@ -85,6 +85,6 @@ class BricksetConnectAdminForm extends ConfigFormBase {
       ->set('brickset_password', $form_state->getValue('brickset_password'))
 		  ->save();
 
-    drupal_set_message('Settings saved.');
+    \Drupal::messenger()->addMessage('Settings saved.');
   }
 }

@@ -2,12 +2,13 @@ name: Brickset Connect
 description: Creates a content type and provides an import tool for brick set inventories.
 package: Custom
 type: module
-version: 1.0
+version: 2.0
 core: 8.x
+core_version_requirement: ^8 || ^9
 
 dependencies:
   - drupal:views
 
 configure: brickset_connect.settings
 
-php: 7.2
+php: 7.3
